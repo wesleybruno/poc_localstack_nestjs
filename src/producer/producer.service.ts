@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SqsService } from '@ssut/nestjs-sqs';
-import { config } from '../config';
+
 @Injectable()
 export class MessageProducer {
     constructor(private readonly sqsService: SqsService) { }
@@ -9,7 +9,7 @@ export class MessageProducer {
         const message: any = JSON.stringify(body);
 
         try {
-            await this.sqsService.send(config.TEST_QUEUE, message);
+            await this.sqsService.send('NEW_ORDER', message);
         } catch (error) {
             console.log('error in producing image!', error);
         }
