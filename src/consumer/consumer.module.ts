@@ -5,9 +5,9 @@ import * as AWS from 'aws-sdk';
 
 
 AWS.config.update({
-    region: 'us-west-1',
-    // accessKeyId: '1234',//config.ACCESS_KEY_ID,
-    // secretAccessKey: '123', //config.SECRET_ACCESS_KEY,
+    region: 'us-east-1',
+    accessKeyId: 'ACCESS_KEY_ID',//config.ACCESS_KEY_ID,
+    secretAccessKey: 'ACCESS_SECRET', //config.SECRET_ACCESS_KEY,
 });
 @Module({
     imports: [
@@ -16,7 +16,7 @@ AWS.config.update({
                 {
                     name: 'NEW_ORDER', // name of the queue 
                     queueUrl: 'http://localhost:4566/000000000000/NEW_ORDER', // the url of the queue
-                    region: 'us-west-1',
+                    region: 'us-east-1',
                 },
             ],
             producers: [],

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SqsMessageHandler } from '@ssut/nestjs-sqs';
+import { SqsMessageHandler, SqsConsumerEventHandler } from '@ssut/nestjs-sqs';
 import * as AWS from 'aws-sdk';
 
 @Injectable()
@@ -7,13 +7,11 @@ export class MessageHandler {
     constructor() { }
     @SqsMessageHandler('NEW_ORDER', false)
     async handleMessage(message: AWS.SQS.Message) {
-        const obj: any = JSON.parse(message.Body) as {
-            message: string;
-            date: string;
-        };
-        const { data } = JSON.parse(obj.Message);
+        console.log(message);
+    }
 
-        // use the data and consume it the way you want // 
-
+    @SqsConsumerEventHandler('NEW_ORDER', 'processing_error')
+    public onProcessingError(error: Error, message: AWS.SQS.Message) {
+        console.log(error);
     }
 }
